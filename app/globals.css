@@ -11,6 +11,12 @@
 }
 
 @layer utilities {
+    .pattern {
+        @apply bg-center bg-repeat-x; /* Apply existing utilities */
+        @apply bg-[length:5%_100%]; /* Apply arbitrary background-size */
+        @apply bg-[linear-gradient(to_right,transparent_49.5%,rgba(251,232,67,0.2)_49.5%,rgba(251,232,67,0.6)_50.5%,transparent_50.5%)]; /* Apply arbitrary background-image */
+    }
+
     .flex-between {
         @apply flex items-center justify-between;
     }
@@ -196,19 +202,6 @@
 
     .category-tag {
         @apply bg-primary-100 rounded-full px-4 py-2 text-[16px] font-medium;
-    }
-
-    .pattern {
-        background-image: linear-gradient(
-            to right,
-            transparent 49.5%,
-            rgba(251, 232, 67, 0.2) 49.5%,
-            rgba(251, 232, 67, 0.6) 50.5%,
-            transparent 50.5%
-        );
-        background-size: 5% 100%;
-        background-position: center;
-        background-repeat: repeat-x;
     }
 
     .tag-tri {
