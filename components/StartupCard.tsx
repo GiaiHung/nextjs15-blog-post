@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
+import { StartupCardType } from "@/global";
 
 interface IStartupCard {
     post: StartupCardType;
@@ -15,7 +16,7 @@ const StartupCard = ({ post }: IStartupCard) => {
         _createdAt,
         views,
         description,
-        author: { _id: author_id, name: author_name, avatar },
+        author,
         title,
         category,
         image,
@@ -32,17 +33,17 @@ const StartupCard = ({ post }: IStartupCard) => {
             </div>
             <div className="flex-between mt-5 items-center gap-5">
                 <div className="flex-1">
-                    <Link href={`/user/${author_name}`}>
-                        <p className="text-16-medium">{author_name}</p>
+                    <Link href={`/user/${author?._id}`}>
+                        <p className="text-16-medium">{author?.name}</p>
                     </Link>
                     <Link href={`/startup/${_id}`}>
                         <h3 className="text-26-semibold">{title}</h3>
                     </Link>
                 </div>
-                <Link href={`/user/${author_id}`}>
+                <Link href={`/user/${author?._id}`}>
                     <Image
                         className="h-12 rounded-full"
-                        src={avatar}
+                        src={author?.image || ""}
                         width={48}
                         height={48}
                         alt="Author Avatar"
@@ -51,12 +52,12 @@ const StartupCard = ({ post }: IStartupCard) => {
             </div>
             <Link href={`/startup/${_id}`}>
                 <p className="startup-card_desc">
-                    {description.length > 500
+                    {description && description.length > 500
                         ? description.substring(0, 500) + "..."
                         : description}
                 </p>
                 <Image
-                    src={image}
+                    src={image || ""}
                     width={250}
                     height={100}
                     alt="Post image"
@@ -64,7 +65,7 @@ const StartupCard = ({ post }: IStartupCard) => {
                 />
             </Link>
             <div className="flex-between mt-5 gap-3">
-                <Link href={`/?query=${category.toLowerCase()}`}>
+                <Link href={`/?query=${category?.toLowerCase()}`}>
                     <p className="text-16-medium">{category}</p>
                 </Link>
                 <Button className="startup-card_btn" asChild>
